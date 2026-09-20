@@ -549,9 +549,6 @@ footer{padding:45px 0 60px;color:#62767f;font-size:10px;display:flex;justify-con
 </div>
 
 <script>
-// -------------------------------------------------------------
-// DUAL SHEETDB ENDPOINTS CONFIGURATION
-// -------------------------------------------------------------
 const MAIN_SHEETDB_URL = "https://sheetdb.io/api/v1/vhf8gxrh908wb";
 const SURAJ_SHEETDB_URL = "https://sheetdb.io/api/v1/9j14nslnsntef";
 
@@ -727,6 +724,18 @@ function openCheckout() {
 
 function closeCheckout() { $('checkoutModal').classList.remove('open'); }
 
+// Real-time promo input listener: Automatically removes promo if text is cleared or backspaced
+$('promoInput').addEventListener('input', e => {
+  const val = e.target.value.trim().toUpperCase();
+  const msg = $('promoMessage');
+
+  if (!val) {
+    activePromo = "";
+    msg.textContent = "";
+    update();
+  }
+});
+
 function applyPromo() {
   const input = $('promoInput').value.trim().toUpperCase();
   const msg = $('promoMessage');
@@ -812,7 +821,6 @@ async function submitFinalProject() {
     device: userDevice
   };
 
-  // Explicit Routing: SURAJ10 goes to Suraj's Sheet, others go to Main Sheet
   let targetSheetUrl = MAIN_SHEETDB_URL;
   if (activePromo === "SURAJ10") {
     targetSheetUrl = SURAJ_SHEETDB_URL;
