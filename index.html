@@ -510,6 +510,7 @@ footer{padding:45px 0 60px;color:#62767f;font-size:10px;display:flex;justify-con
     <div>
       <input class="input-field" id="modalName" placeholder="Your Full Name" autocomplete="name">
       <input class="input-field" id="modalPhone" type="tel" placeholder="WhatsApp Number" autocomplete="tel">
+      <input class="input-field" id="modalEmail" type="email" placeholder="Gmail / Email Address (Optional)" autocomplete="email">
     </div>
 
     <div class="eyebrow" style="margin-bottom: 10px;">Discount</div>
@@ -548,7 +549,10 @@ footer{padding:45px 0 60px;color:#62767f;font-size:10px;display:flex;justify-con
 </div>
 
 <script>
-const SHEETDB_URL = "https://sheetdb.io/api/v1/vhf8gxrh908wb";
+// Main SheetDB Endpoint
+const MAIN_SHEETDB_URL = "https://sheetdb.io/api/v1/vhf8gxrh908wb";
+// Suraj Singh Referral SheetDB Endpoint
+const SURAJ_SHEETDB_URL = "https://sheetdb.io/api/v1/9j14nslnsntef";
 
 const PROMO_CODES = {
   "SONALXSURAJ": { clean: 500, motion: 700, "3d": 1000 },
@@ -568,7 +572,7 @@ let bgm = false;
 
 const $ = id => document.getElementById(id);
 
-// Function to detect client's device/OS and browser automatically
+// Automatically detect client's device/OS and browser
 function getClientDevice() {
   const ua = navigator.userAgent;
   let os = "Unknown OS";
@@ -588,7 +592,6 @@ function getClientDevice() {
     os = "Linux";
   }
 
-  // Extract concise browser name
   let browser = "Web Browser";
   if (/chrome|crios/i.test(ua) && !/edge|opr/i.test(ua)) browser = "Chrome";
   else if (/safari/i.test(ua) && !/chrome/i.test(ua)) browser = "Safari";
@@ -781,6 +784,7 @@ function validateInputs() {
 async function submitFinalProject() {
   const name = $('modalName').value.trim();
   const phone = $('modalPhone').value.trim();
+  const email = $('modalEmail').value.trim();
   const btn = $('finalSubmitBtn');
 
   btn.disabled = true;
@@ -788,13 +792,14 @@ async function submitFinalProject() {
 
   localStorage.setItem('arrieClient', name);
   localStorage.setItem('arriePhone', phone);
+  if(email) localStorage.setItem('arrieEmail', email);
 
-  // Automatically detects user's device/OS
   const userDevice = getClientDevice();
 
   const payload = {
     name: name,
     phone: phone,
+    email: email || "Not Provided",
     shape: shape === '9:16' ? '9:16 Vertical' : shape === '16:9' ? '16:9 Widescreen' : '1:1 Square',
     resolution: res,
     duration: `${duration}s`,
@@ -807,8 +812,14 @@ async function submitFinalProject() {
     device: userDevice
   };
 
+  // Select target sheet URL based on promo code used
+  let targetSheetUrl = MAIN_SHEETDB_URL;
+  if (activePromo === "SURAJ10") {
+    targetSheetUrl = SURAJ_SHEETDB_URL;
+  }
+
   try {
-    const resFetch = await fetch(SHEETDB_URL, {
+    const resFetch = await fetch(targetSheetUrl, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -838,8 +849,10 @@ async function submitFinalProject() {
 
 const savedName = localStorage.getItem('arrieClient');
 const savedPhone = localStorage.getItem('arriePhone');
+const savedEmail = localStorage.getItem('arrieEmail');
 if (savedName) $('modalName').value = savedName;
 if (savedPhone) $('modalPhone').value = savedPhone;
+if (savedEmail) $('modalEmail').value = savedEmail;
 
 update();
 </script>
