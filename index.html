@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>Arrie Post Production — Premium Video Editing Studio</title>
 <style>
 :root{
@@ -244,7 +245,6 @@ input[type=range]::-webkit-slider-thumb{
 .cta:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(218,253,22,.22)}
 .cta:disabled{opacity:.4;cursor:not-allowed;transform:none}
 
-/* Inputs in Modal */
 .input-field{
   width:100%;border:0;border-bottom:1px solid rgba(255,255,255,.18);background:transparent;
   color:var(--white);padding:10px 0;font-size:16px;outline:none;transition:border-color .2s;
@@ -300,7 +300,6 @@ footer{padding:45px 0 60px;color:#62767f;font-size:10px;display:flex;justify-con
 .promo-error { color: #ff4d4f; }
 .strike { text-decoration: line-through; color: #657982; font-size: 13px; margin-right: 6px; }
 
-/* Responsive Media Queries for Mobile Experience */
 @media(max-width:900px){
  .hero-grid,.builder{grid-template-columns:1fr}
  .hero-copy{padding:30px 20px;min-height:auto}
@@ -569,6 +568,36 @@ let bgm = false;
 
 const $ = id => document.getElementById(id);
 
+// Function to detect client's device/OS and browser automatically
+function getClientDevice() {
+  const ua = navigator.userAgent;
+  let os = "Unknown OS";
+  let deviceType = "Desktop/Laptop";
+
+  if (/android/i.test(ua)) {
+    os = "Android";
+    deviceType = "Mobile Phone";
+  } else if (/ipad|iphone|ipod/i.test(ua)) {
+    os = "iOS (iPhone/iPad)";
+    deviceType = "Mobile Phone";
+  } else if (/win/i.test(ua)) {
+    os = "Windows";
+  } else if (/mac/i.test(ua)) {
+    os = "MacOS";
+  } else if (/linux/i.test(ua)) {
+    os = "Linux";
+  }
+
+  // Extract concise browser name
+  let browser = "Web Browser";
+  if (/chrome|crios/i.test(ua) && !/edge|opr/i.test(ua)) browser = "Chrome";
+  else if (/safari/i.test(ua) && !/chrome/i.test(ua)) browser = "Safari";
+  else if (/firefox|fxios/i.test(ua)) browser = "Firefox";
+  else if (/edg/i.test(ua)) browser = "Edge";
+
+  return `${deviceType} (${os} - ${browser})`;
+}
+
 function selectFormat(el, val){
   document.querySelectorAll('#formatOptions .option').forEach(x => x.classList.remove('selected'));
   el.classList.add('selected');
@@ -760,6 +789,9 @@ async function submitFinalProject() {
   localStorage.setItem('arrieClient', name);
   localStorage.setItem('arriePhone', phone);
 
+  // Automatically detects user's device/OS
+  const userDevice = getClientDevice();
+
   const payload = {
     name: name,
     phone: phone,
@@ -771,7 +803,8 @@ async function submitFinalProject() {
     has_bgm: bgm ? "YES" : "NO",
     total_quote: `₹${calculate().toLocaleString('en-IN')}`,
     time: new Date().toLocaleString(),
-    promo_code: activePromo || "NONE"
+    promo_code: activePromo || "NONE",
+    device: userDevice
   };
 
   try {
