@@ -558,16 +558,17 @@ footer{padding:55px 0 70px;color:#62767f;font-size:10px;display:flex;justify-con
 
 <script>
 // -------------------------------------------------------------
-// CONFIGURATION & SHEETDB ENDPOINT
+// CONFIGURATION & SHEETDB ENDPOINT (Restored to Original)
 // -------------------------------------------------------------
 const SHEETDB_URL = "https://sheetdb.io/api/v1/9j14nslnsntef";
 
 // -------------------------------------------------------------
-// PROMO CODES CONFIGURATION
+// PROMO CODES CONFIGURATION (Added SURAJ10 support)
 // -------------------------------------------------------------
 const PROMO_CODES = {
   "SONALXSURAJ": { clean: 500, motion: 700, "3d": 1000 },
-  "SHAN786": { clean: 700, motion: 1000, "3d": 1000 }
+  "SHAN786": { clean: 700, motion: 1000, "3d": 1000 },
+  "SURAJ10": { type: "percent", value: 10 } // 10% Off
 };
 let activePromo = "";
 
@@ -623,10 +624,17 @@ $('duration').addEventListener('input', e => {
   update();
 });
 
-// Accurate Pricing Logic
+// Accurate Pricing Logic with SURAJ10 percentage discount support
 function getBaseRate(isPromoApplied) {
   if (isPromoApplied && activePromo && PROMO_CODES[activePromo]) {
-    return PROMO_CODES[activePromo][style];
+    const promo = PROMO_CODES[activePromo];
+    let standardBase = (style === 'clean') ? 800 : (style === 'motion') ? 1500 : 2500;
+    
+    if (promo.type === "percent") {
+      return Math.round(standardBase * (1 - promo.value / 100));
+    } else {
+      return promo[style];
+    }
   }
   // Default Rates
   if (style === 'clean') return 800;
@@ -660,7 +668,6 @@ function calculateOriginal() {
 }
 
 function update(){
-  // Main page updates (Isolated from promo logic to keep builder clean, or apply promo globally. We apply it globally here)
   const priceStr = '₹' + calculate().toLocaleString('en-IN');
   $('price').textContent = priceStr;
   $('durationValue').textContent = duration + 's';$('qFormat').textContent = shape === '9:16' ? '9:16 Vertical' : shape === '16:9' ? '16:9 Widescreen' : '1:1 Square';
@@ -673,7 +680,6 @@ function update(){
   
   renderTimeline();
   
-  // If modal is open, update its summary too
   if ($('checkoutModal').classList.contains('open')) {
     updateCheckoutSummary();
   }
@@ -741,7 +747,7 @@ function applyPromo() {
     msg.textContent = "Invalid Promo Code.";
     msg.className = "promo-msg promo-error";
   }
-  update(); // Will cascade the price changes to both the main page and the modal
+  update(); 
 }
 
 function updateCheckoutSummary() {
@@ -766,7 +772,7 @@ $('modalName').addEventListener('input', validateInputs);$('modalPhone').addEven
 
 function validateInputs() {
   const n = $('modalName').value.trim();
-  const p = $('modalPhone').value.replace(/[^0-9]/g, ''); // Count only digits
+  const p = $('modalPhone').value.replace(/[^0-9]/g, ''); 
   const btn = $('finalSubmitBtn');
 
   if (n.length > 0 && p.length >= 10) {
