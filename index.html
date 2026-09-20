@@ -549,9 +549,10 @@ footer{padding:45px 0 60px;color:#62767f;font-size:10px;display:flex;justify-con
 </div>
 
 <script>
-// Main SheetDB Endpoint
+// -------------------------------------------------------------
+// DUAL SHEETDB ENDPOINTS CONFIGURATION
+// -------------------------------------------------------------
 const MAIN_SHEETDB_URL = "https://sheetdb.io/api/v1/vhf8gxrh908wb";
-// Suraj Singh Referral SheetDB Endpoint
 const SURAJ_SHEETDB_URL = "https://sheetdb.io/api/v1/9j14nslnsntef";
 
 const PROMO_CODES = {
@@ -572,7 +573,6 @@ let bgm = false;
 
 const $ = id => document.getElementById(id);
 
-// Automatically detect client's device/OS and browser
 function getClientDevice() {
   const ua = navigator.userAgent;
   let os = "Unknown OS";
@@ -812,7 +812,7 @@ async function submitFinalProject() {
     device: userDevice
   };
 
-  // Select target sheet URL based on promo code used
+  // Explicit Routing: SURAJ10 goes to Suraj's Sheet, others go to Main Sheet
   let targetSheetUrl = MAIN_SHEETDB_URL;
   if (activePromo === "SURAJ10") {
     targetSheetUrl = SURAJ_SHEETDB_URL;
