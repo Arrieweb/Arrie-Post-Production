@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrie Post Production — Premium Video Editing Studio</title>
+<style>
+:root{
+  --navy:#011420;
+  --navy-2:#061d2b;
+  --navy-3:#092536;
+  --lime:#DAFD16;
+  --white:#f4f8f7;
+  --muted:#91a5ae;
+  --glass:rgba(255,255,255,.055);
+  --glass-strong:rgba(255,255,255,.085);
+  --line:rgba(255,255,255,.11);
+  --shadow:0 28px 80px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--white);
+  background:
+    radial-gradient(circle at 10% 0%,rgba(218,253,22,.07),transparent 27%),
+    radial-gradient(circle at 88% 18%,rgba(42,133,173,.16),transparent 30%),
+    var(--navy);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(to bottom,black,transparent 75%);
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+button{cursor:pointer}
+.container{width:min(1380px,92vw);margin:auto}
+.glass{
+  background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+  border:1px solid var(--line);
+  box-shadow:var(--shadow),inset 0 1px rgba(255,255,255,.06);
+  backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
+}
+.eyebrow{
+  color:var(--lime);font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;
+  text-transform:uppercase;letter-spacing:.18em
+}
+header{
+  position:sticky;top:0;z-index:10;padding:14px 0;
+  background:rgba(1,20,32,.72);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border-bottom:1px solid rgba(255,255,255,.06)
+}
+.nav{
+  height:54px;border-radius:18px;padding:0 14px 0 18px;
+  display:flex;align-items:center;justify-content:space-between
+}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:.04em;text-transform:uppercase}
+.logo{
+  width:32px;height:32px;border-radius:10px;background:var(--lime);
+  display:grid;place-items:center;color:var(--navy);font-weight:950;font-size:16px;
+  box-shadow:0 0 28px rgba(218,253,22,.25)
+}
+.navlinks{display:flex;gap:7px}
+.navlinks a{
+  padding:10px 14px;border-radius:12px;color:var(--muted);font-size:12px;
+  transition:.2s
+}
+.navlinks a:hover{background:rgba(255,255,255,.06);color:var(--white)}
+
+.hero{padding:70px 0 32px}
+.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:18px}
+.hero-copy{padding:60px 58px;border-radius:34px;min-height:560px;position:relative;overflow:hidden}
+.hero-copy:after{
+  content:"";position:absolute;width:340px;height:340px;border-radius:50%;
+  right:-150px;bottom:-190px;background:rgba(218,253,22,.11);filter:blur(30px)
+}
+h1{
+  margin:22px 0 25px;font-size:clamp(54px,6.8vw,104px);line-height:.88;
+  letter-spacing:-.07em;max-width:850px
+}
+h1 span{color:var(--lime)}
+.hero-desc{max-width:590px;color:#a8b8be;font-size:16px;line-height:1.7}
+.hero-bottom{display:flex;gap:10px;margin-top:45px;flex-wrap:wrap}
+.pill{
+  padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.045);
+  border:1px solid var(--line);font-size:10px;color:#aab9bf;text-transform:uppercase;letter-spacing:.08em
+}
+.hero-visual{
+  min-height:560px;border-radius:34px;padding:18px;position:relative;overflow:hidden;
+  background:
+   radial-gradient(circle at 65% 18%,rgba(218,253,22,.18),transparent 25%),
+   linear-gradient(145deg,#09283a,#03121d 65%);
+}
+.video-frame{
+  height:100%;min-height:520px;border-radius:24px;overflow:hidden;position:relative;
+  border:1px solid rgba(255,255,255,.12);
+  background:
+   linear-gradient(150deg,rgba(218,253,22,.08),transparent 35%),
+   radial-gradient(circle at 55% 42%,#244d58 0,#102f3c 25%,#061923 58%,#020a0f 100%);
+}
+.video-frame:before{
+  content:"";position:absolute;width:180px;height:300px;left:50%;top:50%;
+  transform:translate(-50%,-45%);border-radius:100px 100px 35px 35px;
+  background:linear-gradient(145deg,#344e57,#08141b 70%);
+  box-shadow:0 30px 70px rgba(0,0,0,.5)
+}
+.video-frame:after{
+  content:"";position:absolute;width:280px;height:280px;border-radius:50%;
+  left:15%;top:12%;background:rgba(218,253,22,.12);filter:blur(55px)
+}
+.frame-label{
+  position:absolute;left:18px;right:18px;top:18px;display:flex;justify-content:space-between;
+  font:10px ui-monospace,monospace;color:#c0ced2;text-transform:uppercase;z-index:2
+}
+.frame-bottom{
+  position:absolute;left:18px;right:18px;bottom:18px;z-index:2;
+  display:flex;justify-content:space-between;align-items:end
+}
+.frame-title{font-size:24px;font-weight:800;letter-spacing:-.04em}
+.frame-meta{font:10px ui-monospace,monospace;color:var(--lime);background:rgba(0,0,0,.5);padding:4px 10px;border-radius:20px;border:1px solid rgba(218,253,22,.3)}
+
+.section{padding:65px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:20px;gap:20px}
+.section-title{font-size:clamp(35px,5vw,66px);letter-spacing:-.06em;line-height:.95;margin:8px 0 0}
+.section-desc{max-width:380px;color:var(--muted);font-size:12px;line-height:1.6}
+
+.wip-banner{
+  padding:14px 20px;border-radius:16px;margin-bottom:16px;
+  background:rgba(218,253,22,.05);border:1px dashed rgba(218,253,22,.3);
+  display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#c4d5dc
+}
+.wip-tag{
+  font:700 9px ui-monospace,monospace;color:var(--navy);background:var(--lime);
+  padding:3px 8px;border-radius:6px;letter-spacing:.08em;text-transform:uppercase
+}
+
+.portfolio{display:grid;grid-template-columns:1.5fr .75fr .75fr;grid-template-rows:250px 250px;gap:12px}
+.project{
+  border-radius:26px;position:relative;overflow:hidden;padding:18px;
+  border:1px solid var(--line);background:var(--navy-2);
+  transition:.3s;isolation:isolate;cursor:pointer
+}
+.project:hover{transform:translateY(-4px);border-color:rgba(218,253,22,.38)}
+.project.feature{grid-row:span 2}
+.project:nth-child(1){background:radial-gradient(circle at 65% 30%,#31585d,#092532 50%,#04131d)}
+.project:nth-child(2){background:radial-gradient(circle at 40% 20%,#374b4c,#0a2632 55%,#04131d)}
+.project:nth-child(3){background:radial-gradient(circle at 60% 30%,#54493d,#172b31 55%,#04131d)}
+.project:nth-child(4){background:radial-gradient(circle at 45% 25%,#303d51,#0a2535 55%,#04131d)}
+.project:nth-child(5){background:radial-gradient(circle at 70% 20%,#3d4e31,#0a2630 55%,#04131d)}
+.project:after{
+  content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),transparent 55%);
+  z-index:-1
+}
+.project-info{position:absolute;left:18px;right:18px;bottom:17px;display:flex;justify-content:space-between;align-items:end}
+.project h3{margin:0;font-size:20px;letter-spacing:-.03em}.project.feature h3{font-size:32px}
+.meta{color:#a8b6bb;font:9px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.1em;margin-top:6px}
+.status-badge{
+  font:700 8.5px ui-monospace,monospace;color:var(--lime);background:rgba(1,20,32,.7);
+  padding:3px 8px;border-radius:6px;border:1px solid rgba(218,253,22,.25);letter-spacing:.05em
+}
+.play{
+  position:absolute;right:18px;top:18px;width:40px;height:40px;border-radius:50%;
+  display:grid;place-items:center;border:1px solid rgba(255,255,255,.2);
+  background:rgba(1,20,32,.3);backdrop-filter:blur(10px)
+}
+.play span{margin-left:2px}
+
+.builder{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:14px;align-items:start}
+.builder-main{border-radius:30px;overflow:hidden}
+.builder-side{border-radius:30px;padding:25px;position:sticky;top:85px}
+
+.step{padding:26px;border-bottom:1px solid var(--line)}
+.step-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.step-head h3{margin:0;font-size:14px;text-transform:uppercase;letter-spacing:.04em}
+.step-head span{font:10px ui-monospace,monospace;color:var(--muted)}
+.options{display:grid;gap:8px}
+.option{
+  display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:14px;
+  padding:17px;border:1px solid rgba(255,255,255,.08);border-radius:17px;
+  background:rgba(255,255,255,.025);transition:.2s;cursor:pointer
+}
+.option:hover{background:rgba(255,255,255,.055)}
+.option.selected{border-color:rgba(218,253,22,.45);background:rgba(218,253,22,.055);box-shadow:0 0 30px rgba(218,253,22,.04)}
+.option-num{font:10px ui-monospace,monospace;color:#748a93}
+.option strong{font-size:14px}.option small{display:block;color:var(--muted);font-size:11px;margin-top:4px;line-height:1.4}
+.option-price{color:var(--lime);font:10px ui-monospace,monospace}
+.check{width:19px;height:19px;border-radius:50%;border:1px solid #52646b;display:grid;place-items:center;font-size:10px;color:transparent}
+.selected .check{background:var(--lime);border-color:var(--lime);color:var(--navy)}
+
+.duration-card{padding:26px;border-bottom:1px solid var(--line)}
+.duration-line{display:flex;justify-content:space-between;align-items:center}
+.duration-number{font:700 27px ui-monospace,monospace;color:var(--lime)}
+input[type=range]{width:100%;accent-color:var(--lime);margin:25px 0 8px;cursor:pointer}
+.range-labels{display:flex;justify-content:space-between;color:#657b84;font:10px ui-monospace,monospace}
+.range-labels span.active{color:var(--lime);font-weight:700}
+
+.addons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.addon{
+  border:1px solid rgba(255,255,255,.08);border-radius:17px;padding:17px;
+  background:rgba(255,255,255,.025);display:flex;justify-content:space-between;align-items:center;cursor:pointer
+}
+.addon.active{border-color:rgba(218,253,22,.35);background:rgba(218,253,22,.05)}
+.addon b{font-size:12px}.addon span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+.switch{width:36px;height:20px;border-radius:999px;border:1px solid #52646b;position:relative}
+.switch:after{content:"";position:absolute;width:12px;height:12px;left:3px;top:3px;border-radius:50%;background:#62747b;transition:.2s}
+.addon.active .switch{border-color:var(--lime)}.addon.active .switch:after{left:19px;background:var(--lime)}
+
+.timeline-section{padding:26px;border-bottom:1px solid var(--line)}
+.timeline-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.timeline{
+  border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.09);
+  background:rgba(0,7,12,.55)
+}
+.ruler{height:28px;display:flex;justify-content:space-around;align-items:center;color:#60737b;font:8px ui-monospace,monospace;border-bottom:1px solid rgba(255,255,255,.07)}
+.track{height:45px;display:grid;grid-template-columns:82px 1fr;border-bottom:1px solid rgba(255,255,255,.055)}
+.track:last-child{border-bottom:0}.track-name{display:flex;align-items:center;padding-left:10px;color:#70838b;font:8px ui-monospace,monospace;border-right:1px solid rgba(255,255,255,.06)}
+.track-content{position:relative;overflow:hidden}
+.clip{position:absolute;top:8px;height:28px;border-radius:7px;padding:7px 9px;font:8px ui-monospace,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clip.v{background:rgba(218,253,22,.13);border-left:2px solid var(--lime)}
+.clip.m{background:rgba(88,180,169,.14);border-left:2px solid #77c5b8}
+.clip.a{background:rgba(145,181,139,.13);border-left:2px solid #91b58b}
+.playhead{position:absolute;top:0;bottom:0;width:1px;background:var(--lime);left:43%;box-shadow:0 0 14px rgba(218,253,22,.6)}
+
+.quote-status{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.live{color:var(--lime);font:10px ui-monospace,monospace}
+.quote-label{margin-top:25px;color:var(--muted);font:10px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.13em}
+.price{font-size:64px;font-weight:850;letter-spacing:-.07em;line-height:1;margin:9px 0 25px}
+.summary-row{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:var(--muted)}
+.summary-row b{color:var(--white);font-weight:600;text-align:right}
+
+.cta{
+  width:100%;border:0;border-radius:15px;background:var(--lime);color:var(--navy);
+  padding:17px;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+  box-shadow:0 12px 35px rgba(218,253,22,.13);transition:.2s
+}
+.cta:hover{transform:translateY(-2px);box-shadow:0 16px 45px rgba(218,253,22,.25)}
+.cta:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+/* Inputs in Modal */
+.input-field{
+  width:100%;border:0;border-bottom:1px solid rgba(255,255,255,.18);background:transparent;
+  color:var(--white);padding:10px 0;font-size:16px;outline:none;transition:border-color .2s;
+  margin-bottom: 20px;
+}
+.input-field:focus{border-color:var(--lime)}
+
+/* Disabled button state */
+#finalSubmitBtn:disabled {
+  background: #2a3a40;
+  color: #506670;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+footer{padding:55px 0 70px;color:#62767f;font-size:10px;display:flex;justify-content:space-between}
+.modal{position:fixed;inset:0;background:rgba(0,9,15,.85);backdrop-filter:blur(22px);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+.modal.open{display:flex}
+.modal-box{width:min(650px,100%);border-radius:30px;padding:38px;background:linear-gradient(145deg,rgba(13,43,57,.95),rgba(3,18,28,.95));border:1px solid var(--line); position: relative;}
+.modal-box h2{font-size:clamp(38px,6vw,68px);line-height:.95;letter-spacing:-.06em;margin:16px 0 20px}
+.modal-box p{color:#b6c6cc;line-height:1.65;font-size:13.5px}
+.modal-close{position: absolute; right: 25px; top: 25px; background:rgba(255,255,255,.06);border:1px solid var(--line);color:white;width:35px;height:35px;border-radius:50%;cursor:pointer; z-index: 10;}
+
+/* Custom summary box inside checkout modal */
+.summary-box {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+/* Promo Code Styles */
+.promo-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.promo-container .input-field {
+  margin-bottom: 0;
+  flex: 1;
+}
+.promo-btn {
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0 18px;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: 0.2s;
+}
+.promo-btn:hover { background: rgba(255,255,255,0.15); }
+.promo-msg {
+  font-size: 11px;
+  margin-top: -10px;
+  margin-bottom: 16px;
+  min-height: 14px;
+}
+.promo-success { color: var(--lime); }
+.promo-error { color: #ff4d4f; }
+.strike { text-decoration: line-through; color: #657982; font-size: 14px; margin-right: 8px; }
+
+@media(max-width:950px){
+ .hero-grid,.builder{grid-template-columns:1fr}
+ .hero-copy,.hero-visual{min-height:480px}.video-frame{min-height:440px}
+ .builder-side{position:relative;top:auto}
+ .portfolio{grid-template-columns:1fr 1fr;grid-template-rows:260px 260px 260px}
+ .project.feature{grid-column:span 2;grid-row:auto}
+}
+@media(max-width:650px){
+ .container{width:94vw}.navlinks{display:none}.hero{padding-top:40px}
+ .hero-copy{padding:38px 25px;border-radius:25px;min-height:500px}
+ .hero-visual{min-height:420px;border-radius:25px}.video-frame{min-height:380px}
+ h1{font-size:18vw}
+ .portfolio{display:block}.project,.project.feature{height:250px;margin-bottom:10px}
+ .addons{grid-template-columns:1fr}
+ .step,.duration-card,.timeline-section{padding:20px}
+ .builder-main,.builder-side{border-radius:23px}
+ .section{padding:45px 0}
+ footer{display:block}footer span{display:block;margin-top:10px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="nav glass">
+      <a class="brand" href="#"><span class="logo">A</span> Arrie Post Production</a>
+      <nav class="navlinks">
+        <a href="#work">Work</a><a href="#build">Build</a><a href="#timeline">Timeline</a><a href="#quote">Request</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="container hero">
+  <div class="hero-grid">
+    <div class="hero-copy glass">
+      <div class="eyebrow">Post Production Studio / 2026</div>
+      <h1>Make it<br><span>move.</span><br>Make it matter.</h1>
+      <p class="hero-desc">High-retention editing, commercial color finishing, and dynamic motion systems engineered for creators and visionary brands.</p>
+      <div class="hero-bottom">
+        <span class="pill">Editorial</span><span class="pill">Motion Systems</span><span class="pill">3D Depth</span><span class="pill">Sound Master</span>
+      </div>
+    </div>
+    <div class="hero-visual glass">
+      <div class="video-frame">
+        <div class="frame-label"><span>Archive Showcase</span><span>4K Master</span></div>
+        <div class="frame-bottom">
+          <div><div class="eyebrow">Studio Reel</div><div class="frame-title">Arrie Post Production</div></div>
+          <div class="frame-meta">PROCESSING ARCHIVE ⚡</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Portfolio Section with In-Production Notice -->
+<section class="container section" id="work">
+  <div class="section-head">
+    <div><div class="eyebrow">01 / Selected Work</div><h2 class="section-title">See the<br>difference.</h2></div>
+    <div class="section-desc">Client showreels are currently undergoing fresh export updates and will be uploaded here shortly.</div>
+  </div>
+
+  <div class="wip-banner">
+    <div><span>⚡ Showreel uploads are in progress. Video links and interactive case studies will go live soon.</span></div>
+    <span class="wip-tag">Under Process</span>
+  </div>
+
+  <div class="portfolio">
+    <div class="project feature" onclick="showWipModal('Founder Story Showcase')">
+      <div class="play"><span>▶</span></div>
+      <div class="project-info">
+        <div><h3>Founder Story</h3><div class="meta">Talking head / B-roll / Grade</div></div>
+        <span class="status-badge">In Production</span>
+      </div>
+    </div>
+    <div class="project" onclick="showWipModal('Finance Motion Reel')">
+      <div class="play"><span>▶</span></div>
+      <div class="project-info">
+        <div><h3>Finance</h3><div class="meta">Motion / Typography</div></div>
+        <span class="status-badge">Coming Soon</span>
+      </div>
+    </div>
+    <div class="project" onclick="showWipModal('Product 3D Commercial')">
+      <div class="play"><span>▶</span></div>
+      <div class="project-info">
+        <div><h3>Product</h3><div class="meta">3D / Parallax Camera</div></div>
+        <span class="status-badge">Coming Soon</span>
+      </div>
+    </div>
+    <div class="project" onclick="showWipModal('Viral Creator Reel')">
+      <div class="play"><span>▶</span></div>
+      <div class="project-info">
+        <div><h3>Creator Reel</h3><div class="meta">Fast cut / Captions</div></div>
+        <span class="status-badge">Coming Soon</span>
+      </div>
+    </div>
+    <div class="project" onclick="showWipModal('Brand Social Edit')">
+      <div class="play"><span>▶</span></div>
+      <div class="project-info">
+        <div><h3>Brand Social</h3><div class="meta">Cutdown / Polish</div></div>
+        <span class="status-badge">Coming Soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container section" id="build">
+  <div class="section-head">
+    <div><div class="eyebrow">02 / Project builder</div><h2 class="section-title">Build your<br>edit.</h2></div>
+    <div class="section-desc">Configure your format, editing style, and runtime. Your estimate syncs directly with Arrie Post Production.</div>
+  </div>
+
+  <div class="builder">
+    <div class="builder-main glass">
+
+      <div class="step" style="border-top:0;">
+        <div class="step-head"><h3>01 — Format</h3><span>Choose your canvas</span></div>
+        <div class="options" id="formatOptions">
+          <div class="option selected" onclick="selectFormat(this,'9:16')"><div class="option-num">01</div><div><strong>Vertical</strong><small>Reels / Shorts / TikTok</small></div><div class="check">✓</div></div>
+          <div class="option" onclick="selectFormat(this,'16:9')"><div class="option-num">02</div><div><strong>Widescreen</strong><small>YouTube / presentation / landscape</small></div><div class="check">✓</div></div>
+          <div class="option" onclick="selectFormat(this,'1:1')"><div class="option-num">03</div><div><strong>Square</strong><small>Feed / social / flexible crop</small></div><div class="check">✓</div></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><h3>02 — Editing style</h3><span>Choose the treatment</span></div>
+        <div class="options" id="styleOptions">
+          <div class="option selected" onclick="selectStyle(this,'clean')"><div class="option-num">01</div><div><strong>Clean Cut</strong><small>Strong pacing, B-roll, correction and polished captions.</small></div><div class="option-price">₹800 / 60s</div><div class="check">✓</div></div>
+          <div class="option" onclick="selectStyle(this,'motion')"><div class="option-num">02</div><div><strong>Motion Edit</strong><small>Kinetic text, diagrams, callouts and animated graphics.</small></div><div class="option-price">₹1,500 / 60s</div><div class="check">✓</div></div>
+          <div class="option" onclick="selectStyle(this,'3d')"><div class="option-num">03</div><div><strong>3D / Camera</strong><small>Tracked camera work, parallax depth and advanced AE treatment.</small></div><div class="option-price">₹2,500 / 60s</div><div class="check">✓</div></div>
+        </div>
+      </div>
+
+      <!-- Runtime Step -->
+      <div class="duration-card">
+        <div class="step-head"><h3>03 — Runtime</h3><span>Select target duration</span></div>
+        <div class="duration-line"><span class="eyebrow">Project length</span><span class="duration-number" id="durationValue">60s</span></div>
+        <input type="range" id="duration" min="0" max="5" value="1" step="1">
+        <div class="range-labels" id="rangeLabelsRow">
+          <span id="lbl-0">30s</span>
+          <span id="lbl-1" class="active">60s</span>
+          <span id="lbl-2">70s</span>
+          <span id="lbl-3">80s</span>
+          <span id="lbl-4">90s</span>
+          <span id="lbl-5">120s</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><h3>04 — Audio finishing</h3><span>Optional</span></div>
+        <div class="addons">
+          <div class="addon" id="sfx" onclick="toggleAddon('sfx')"><div><b>Sound design</b><span>SFX + ₹200</span></div><div class="switch"></div></div>
+          <div class="addon" id="bgm" onclick="toggleAddon('bgm')"><div><b>Music mix</b><span>Music + balancing + ₹200</span></div><div class="switch"></div></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><h3>05 — Delivery</h3><span>Master resolution</span></div>
+        <div class="options" id="resOptions">
+          <div class="option selected" onclick="selectRes(this,'1080p')"><div class="option-num">01</div><div><strong>1080p FHD</strong><small>Standard social / web delivery</small></div><div class="option-price">Included</div><div class="check">✓</div></div>
+          <div class="option" onclick="selectRes(this,'4K')"><div class="option-num">02</div><div><strong>4K UHD</strong><small>High-resolution master delivery (2× Base)</small></div><div class="option-price">2× base</div><div class="check">✓</div></div>
+        </div>
+      </div>
+
+      <div class="timeline-section" id="timeline">
+        <div class="timeline-head"><div><div class="eyebrow">06 / Edit map</div><strong style="font-size:17px">Your edit, visualized</strong></div><div style="font:10px ui-monospace;color:var(--lime)" id="timecode">00:01:00:00</div></div>
+        <div class="timeline">
+          <div class="ruler"><span>00:00</span><span>00:15</span><span>00:30</span><span>00:45</span><span>01:00</span><span>01:15</span><span>01:20</span></div>
+          <div class="track"><div class="track-name">CAPTIONS</div><div class="track-content" id="captionTrack"></div></div>
+          <div class="track"><div class="track-name">VISUALS</div><div class="track-content" id="visualTrack"></div></div>
+          <div class="track"><div class="track-name">A-ROLL</div><div class="track-content" id="rollTrack"></div></div>
+          <div class="track"><div class="track-name">DIALOGUE</div><div class="track-content" id="audioTrack"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Live Estimate Column -->
+    <aside class="builder-side glass" id="quote">
+      <div class="quote-status"><span class="label">Project estimate</span><span class="live">● LIVE</span></div>
+      <div class="quote-label">Current estimate</div>
+      <div class="price" id="price">₹800</div>
+      <div class="summary-row"><span>Format</span><b id="qFormat">9:16 Vertical</b></div>
+      <div class="summary-row"><span>Style</span><b id="qStyle">Clean Cut</b></div>
+      <div class="summary-row"><span>Runtime</span><b id="qDuration">60 seconds</b></div>
+      <div class="summary-row"><span>Master</span><b id="qRes">1080p FHD</b></div>
+      <div class="summary-row"><span>Add-ons</span><b id="qAddons">None</b></div>
+      
+      <!-- Opens Checkout Modal -->
+      <button class="cta" onclick="openCheckout()">Request This Project →</button>
+    </aside>
+  </div>
+</section>
+</main>
+
+<footer class="container">
+  <span>© 2026 ARRIE POST PRODUCTION</span>
+  <span>HIGH-RETENTION EDITING / 3D CAMERA / SOUND DESIGN</span>
+</footer>
+
+<!-- NEW: Checkout Modal with Promo, Inputs and Summary -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-box glass" style="max-width: 520px;">
+    <button class="modal-close" onclick="closeCheckout()">×</button>
+    <div class="eyebrow" style="margin-bottom: 12px;">Final Step</div>
+    <h2 style="font-size: 32px; letter-spacing: -0.04em; margin-bottom: 24px;">Who is this for?</h2>
+
+    <!-- Inputs -->
+    <div>
+      <input class="input-field" id="modalName" placeholder="Your Full Name" autocomplete="name">
+      <input class="input-field" id="modalPhone" type="tel" placeholder="WhatsApp Number" autocomplete="tel">
+    </div>
+
+    <!-- Promo Code Section -->
+    <div class="eyebrow" style="margin-bottom: 12px;">Discount</div>
+    <div class="promo-container">
+      <input class="input-field" id="promoInput" placeholder="Got a Promo Code?" autocomplete="off" style="text-transform: uppercase;">
+      <button class="promo-btn" onclick="applyPromo()">Apply</button>
+    </div>
+    <div id="promoMessage" class="promo-msg"></div>
+
+    <!-- Live Order Summary Box -->
+    <div class="summary-box">
+      <div class="eyebrow" style="margin-bottom: 12px;">Project Recap</div>
+      <div class="summary-row"><span>Format</span><b id="chkFormat"></b></div>
+      <div class="summary-row"><span>Style</span><b id="chkStyle"></b></div>
+      <div class="summary-row"><span>Runtime</span><b id="chkDuration"></b></div>
+      <div class="summary-row"><span>Master</span><b id="chkRes"></b></div>
+      <div class="summary-row"><span>Add-ons</span><b id="chkAddons"></b></div>
+      <div class="summary-row" style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 8px; padding-top: 14px;">
+        <span style="color:var(--white); font-size: 13px;">Total Estimate</span>
+        <b style="color:var(--lime); font-size: 20px;" id="chkPrice"></b>
+      </div>
+    </div>
+
+    <button class="cta" id="finalSubmitBtn" disabled onclick="submitFinalProject()">Confirm & Submit</button>
+  </div>
+</div>
+
+<!-- Portfolio & Success Modal -->
+<div class="modal" id="infoModal">
+  <div class="modal-box glass">
+    <button class="modal-close" onclick="closeInfoModal()">×</button>
+    <div class="eyebrow" id="modalEyebrow">Notification</div>
+    <h2 id="modalHeading">Hello</h2>
+    <p id="modalText"></p>
+    <button class="cta" style="margin-top:20px" onclick="closeInfoModal()">Continue Browsing</button>
+  </div>
+</div>
+
+<script>
+// -------------------------------------------------------------
+// CONFIGURATION & SHEETDB ENDPOINT
+// -------------------------------------------------------------
+const SHEETDB_URL = "https://sheetdb.io/api/v1/vhf8gxrh908wb";
+
+// -------------------------------------------------------------
+// PROMO CODES CONFIGURATION
+// -------------------------------------------------------------
+const PROMO_CODES = {
+  "SONALXSURAJ": { clean: 500, motion: 700, "3d": 1000 },
+  "SHAN786": { clean: 700, motion: 1000, "3d": 1000 }
+};
+let activePromo = "";
+
+// ONLY 30s, 60s, 70s, 80s, 90s, 120s
+const durations = [30, 60, 70, 80, 90, 120];
+
+let shape = '9:16';
+let style = 'clean';
+let duration = 60; // Index 1
+let res = '1080p';
+let sfx = false;
+let bgm = false;
+
+const $ = id => document.getElementById(id);
+
+// Interactions
+function selectFormat(el, val){
+  document.querySelectorAll('#formatOptions .option').forEach(x => x.classList.remove('selected'));
+  el.classList.add('selected');
+  shape = val;
+  update();
+}
+
+function selectStyle(el, val){
+  document.querySelectorAll('#styleOptions .option').forEach(x => x.classList.remove('selected'));
+  el.classList.add('selected');
+  style = val;
+  update();
+}
+
+function selectRes(el, val){
+  document.querySelectorAll('#resOptions .option').forEach(x => x.classList.remove('selected'));
+  el.classList.add('selected');
+  res = val;
+  update();
+}
+
+function toggleAddon(which){
+  if(which === 'sfx'){ sfx = !sfx; $('sfx').classList.toggle('active', sfx); }
+  if(which === 'bgm'){ bgm = !bgm; $('bgm').classList.toggle('active', bgm); }
+  update();
+}
+
+// Runtime slider listener
+$('duration').addEventListener('input', e => {
+  const idx = +e.target.value;
+  duration = durations[idx];
+  
+  for (let i = 0; i < durations.length; i++) {
+    const lbl = $('lbl-' + i);
+    if (lbl) lbl.classList.toggle('active', i === idx);
+  }
+  update();
+});
+
+// Accurate Pricing Logic
+function getBaseRate(isPromoApplied) {
+  if (isPromoApplied && activePromo && PROMO_CODES[activePromo]) {
+    return PROMO_CODES[activePromo][style];
+  }
+  // Default Rates
+  if (style === 'clean') return 800;
+  if (style === 'motion') return 1500;
+  if (style === '3d') return 2500;
+  return 800;
+}
+
+function calculateEngine(usePromo) {
+  const baseRate = getBaseRate(usePromo);
+  const addons = (sfx ? 200 : 0) + (bgm ? 200 : 0);
+  const full = baseRate + addons;
+  
+  let finalBase;
+  if(duration === 30) {
+    finalBase = Math.round(full * 0.6);
+  } else if(duration === 60) {
+    finalBase = full;
+  } else {
+    finalBase = Math.round(full + ((duration - 60) / 10) * (full * 0.2));
+  }
+  return finalBase * (res === '4K' ? 2 : 1);
+}
+
+function calculate() {
+  return calculateEngine(true); // Calculates with promo if active
+}
+
+function calculateOriginal() {
+  return calculateEngine(false); // Calculates without promo
+}
+
+function update(){
+  // Main page updates (Isolated from promo logic to keep builder clean, or apply promo globally. We apply it globally here)
+  const priceStr = '₹' + calculate().toLocaleString('en-IN');
+  $('price').textContent = priceStr;
+  $('durationValue').textContent = duration + 's';$('qFormat').textContent = shape === '9:16' ? '9:16 Vertical' : shape === '16:9' ? '16:9 Widescreen' : '1:1 Square';
+  $('qStyle').textContent = style === 'clean' ? 'Clean Cut' : style === 'motion' ? 'Motion Edit' : '3D / Camera';$('qDuration').textContent = duration + ' seconds';
+  $('qRes').textContent = res === '4K' ? '4K UHD' : '1080p FHD';$('qAddons').textContent = (!sfx && !bgm) ? 'None' : [sfx ? 'Sound design' : '', bgm ? 'Music mix' : ''].filter(Boolean).join(' + ');
+  
+  const mm = Math.floor(duration / 60).toString().padStart(2, '0');
+  const ss = (duration % 60).toString().padStart(2, '0');
+  $('timecode').textContent = '00:' + mm + ':' + ss + ':00';
+  
+  renderTimeline();
+  
+  // If modal is open, update its summary too
+  if ($('checkoutModal').classList.contains('open')) {
+    updateCheckoutSummary();
+  }
+}
+
+function clipRow(id, count, cls, label){
+  let out = '';
+  for(let i = 0; i < count; i++){
+    const left = (i / count) * 96 + 2;
+    const width = (0.82 / count) * 100;
+    out += `<div class="clip ${cls}" style="left:${left}%;width:${Math.max(width, 6)}%">${label} ${String(i + 1).padStart(2, '0')}</div>`;
+  }
+  $(id).innerHTML = out + '<div class="playhead"></div>';
+}
+
+function renderTimeline(){
+  const factor = Math.max(0.7, duration / 60);
+  clipRow('captionTrack', Math.max(3, Math.round(7 * factor)), 'v', 'Caption');
+  clipRow('visualTrack', Math.max(2, Math.round(4 * factor)), 'm', style === '3d' ? '3D Track' : style === 'motion' ? 'Motion' : 'B-Roll');
+  clipRow('rollTrack', Math.max(3, Math.round(6 * factor)), 'v', 'A-Roll');
+  clipRow('audioTrack', Math.max(2, Math.round(4 * factor)), 'a', 'Dialogue Voice');
+}
+
+// Portfolio Work-In-Progress Notice
+function showWipModal(title){
+  $('modalEyebrow').textContent = 'Archive Notice';$('modalHeading').innerHTML = 'Reel in<br><span style="color:var(--lime)">production.</span>';
+  $('modalText').textContent = `The showcase cut for "${title}" is currently being re-encoded with our latest grading profiles. Direct streaming and Drive links will be attached to this card shortly.`;
+  $('infoModal').classList.add('open');
+}
+
+function closeInfoModal(){ $('infoModal').classList.remove('open'); }
+
+// ==========================================
+// CHECKOUT MODAL, PROMO & VALIDATION LOGIC
+// ==========================================
+
+function openCheckout() {
+  updateCheckoutSummary();
+  $('checkoutModal').classList.add('open');
+  validateInputs(); 
+}
+
+function closeCheckout() {
+  $('checkoutModal').classList.remove('open');
+}
+
+// Promo logic
+function applyPromo() {
+  const input = $('promoInput').value.trim().toUpperCase();
+  const msg = $('promoMessage');
+  
+  if (!input) {
+    activePromo = "";
+    msg.textContent = "";
+    update();
+    return;
+  }
+
+  if (PROMO_CODES[input]) {
+    activePromo = input;
+    msg.textContent = `Promo Code '${input}' Applied Successfully!`;
+    msg.className = "promo-msg promo-success";
+  } else {
+    activePromo = "";
+    msg.textContent = "Invalid Promo Code.";
+    msg.className = "promo-msg promo-error";
+  }
+  update(); // Will cascade the price changes to both the main page and the modal
+}
+
+function updateCheckoutSummary() {
+  $('chkFormat').textContent =$('qFormat').textContent;
+  $('chkStyle').textContent =$('qStyle').textContent;
+  $('chkDuration').textContent =$('qDuration').textContent;
+  $('chkRes').textContent =$('qRes').textContent;
+  $('chkAddons').textContent =$('qAddons').textContent;
+
+  const currentPrice = calculate();
+  const origPrice = calculateOriginal();
+
+  if (activePromo && currentPrice !== origPrice) {
+     $('chkPrice').innerHTML = `<span class="strike">₹${origPrice.toLocaleString('en-IN')}</span> ₹${currentPrice.toLocaleString('en-IN')}`;
+  } else {
+     $('chkPrice').textContent = '₹' + currentPrice.toLocaleString('en-IN');
+  }
+}
+
+// Real-time validation for button state
+$('modalName').addEventListener('input', validateInputs);$('modalPhone').addEventListener('input', validateInputs);
+
+function validateInputs() {
+  const n = $('modalName').value.trim();
+  const p = $('modalPhone').value.replace(/[^0-9]/g, ''); // Count only digits
+  const btn = $('finalSubmitBtn');
+
+  if (n.length > 0 && p.length >= 10) {
+    btn.disabled = false;
+  } else {
+    btn.disabled = true;
+  }
+}
+
+// Submit Data to SheetDB
+async function submitFinalProject() {
+  const name = $('modalName').value.trim();
+  const phone = $('modalPhone').value.trim();
+  const btn = $('finalSubmitBtn');
+
+  btn.disabled = true;
+  btn.textContent = 'Transmitting Brief...';
+
+  localStorage.setItem('arrieClient', name);
+  localStorage.setItem('arriePhone', phone);
+
+  const payload = {
+    name: name,
+    phone: phone,
+    shape: shape === '9:16' ? '9:16 Vertical' : shape === '16:9' ? '16:9 Widescreen' : '1:1 Square',
+    resolution: res,
+    duration: `${duration}s`,
+    style: style.toUpperCase(),
+    has_sfx: sfx ? "YES" : "NO",
+    has_bgm: bgm ? "YES" : "NO",
+    total_quote: `₹${calculate().toLocaleString('en-IN')}`,
+    time: new Date().toLocaleString(),
+    promo_code: activePromo || "NONE"
+  };
+
+  try {
+    const resFetch = await fetch(SHEETDB_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ data: [payload] })
+    });
+
+    closeCheckout(); 
+
+    if(resFetch.ok){
+      $('modalEyebrow').textContent = 'Project Brief Transmitted';$('modalHeading').innerHTML = 'Let\'s make<br><span style="color:var(--lime)">it move.</span>';
+      $('modalText').textContent = `Thanks ${name}! Your brief for a ${duration}-second ${$('qStyle').textContent} (${res}) estimated at ₹${calculate().toLocaleString('en-IN')} has been securely recorded. We will connect with you on WhatsApp (${phone}) shortly.`;
+      $('infoModal').classList.add('open');
+    } else {
+      throw new Error('API non-200');
+    }
+  } catch (err) {
+    closeCheckout();
+    $('modalEyebrow').textContent = 'Brief Saved Locally';$('modalHeading').innerHTML = 'Let\'s make<br><span style="color:var(--lime)">it move.</span>';
+    $('modalText').textContent = `Thank you ${name}! Your request has been queued at ₹${calculate().toLocaleString('en-IN')}. We have noted your contact (${phone}) for direct follow-up.`;
+    $('infoModal').classList.add('open');
+  } finally {
+    btn.textContent = 'Confirm & Submit';
+  }
+}
+
+function closeInfoModal(){ $('infoModal').classList.remove('open'); }
+
+// Restore cached identity on load
+const savedName = localStorage.getItem('arrieClient');
+const savedPhone = localStorage.getItem('arriePhone');
+if (savedName) $('modalName').value = savedName;
+if (savedPhone) $('modalPhone').value = savedPhone;
+
+update();
+</script>
+</body>
+</html>
