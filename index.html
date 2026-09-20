@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Prevent browser from caching old HTML versions -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
 <title>Arrie Post Production — Premium Video Editing Studio</title>
 <style>
 :root{
@@ -558,17 +563,17 @@ footer{padding:55px 0 70px;color:#62767f;font-size:10px;display:flex;justify-con
 
 <script>
 // -------------------------------------------------------------
-// CONFIGURATION & SHEETDB ENDPOINT (Restored to Original)
+// CONFIGURATION & SHEETDB ENDPOINT
 // -------------------------------------------------------------
-const SHEETDB_URL = "https://sheetdb.io/api/v1/9j14nslnsntef";
+const SHEETDB_URL = "https://sheetdb.io/api/v1/vhf8gxrh908wb";
 
 // -------------------------------------------------------------
-// PROMO CODES CONFIGURATION (Added SURAJ10 support)
+// PROMO CODES CONFIGURATION
 // -------------------------------------------------------------
 const PROMO_CODES = {
   "SONALXSURAJ": { clean: 500, motion: 700, "3d": 1000 },
   "SHAN786": { clean: 700, motion: 1000, "3d": 1000 },
-  "SURAJ10": { type: "percent", value: 10 } // 10% Off
+  "SURAJ10": { type: "percent", value: 10 }
 };
 let activePromo = "";
 
@@ -624,7 +629,7 @@ $('duration').addEventListener('input', e => {
   update();
 });
 
-// Accurate Pricing Logic with SURAJ10 percentage discount support
+// Accurate Pricing Logic with SURAJ10
 function getBaseRate(isPromoApplied) {
   if (isPromoApplied && activePromo && PROMO_CODES[activePromo]) {
     const promo = PROMO_CODES[activePromo];
@@ -660,11 +665,11 @@ function calculateEngine(usePromo) {
 }
 
 function calculate() {
-  return calculateEngine(true); // Calculates with promo if active
+  return calculateEngine(true); 
 }
 
 function calculateOriginal() {
-  return calculateEngine(false); // Calculates without promo
+  return calculateEngine(false); 
 }
 
 function update(){
@@ -837,7 +842,7 @@ async function submitFinalProject() {
   }
 }
 
-function closeInfoModal(){ $('infoModal').classList.remove('open'); }
+function closeInfoManager(){ $('infoModal').classList.remove('open'); }
 
 // Restore cached identity on load
 const savedName = localStorage.getItem('arrieClient');
